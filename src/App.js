@@ -36,13 +36,25 @@ class App extends Component {
       }
   }
 
+  handleFilter = (e) => {
+      console.log(e.target.value);
+      this.setState({
+          sourceFilter: e.target.value
+      })
+  }
+
   render() {
-    const {articles, sources} = this.state;
+    const {articles, sources, sourceFilter} = this.state;
 
     return (
       <div className="App">
-        <Header title="News" sources={sources} />
-          {articles.map(article => <Article key={article.title + article.publishedAt} {...article}/>)}
+        <Header title="News" sources={sources} handleFilter={this.handleFilter} />
+          {sourceFilter ? articles
+              .filter(article => article.source.name === sourceFilter)
+              .map(article => <Article key={article.title + article.publishedAt} {...article}/>)
+              :articles
+                  .map(article => <Article key={article.title + article.publishedAt} {...article}/>)
+          }
         <Footer showMore={this.fetchData} />
       </div>
     );
