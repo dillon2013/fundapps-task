@@ -1,12 +1,12 @@
 import React from 'react';
 
-export default (props) => (
+export default ({title, sources}) => (
     <div>
-        <div data-testid="news-title">News</div>
+        <div data-testid="news-title">{title}</div>
 
         <label htmlFor="sources-list">Filter By Source</label>
         <select name="sources" id="sources-list">
-            {props.sources.map(source => <option value={source} key={source}>{ source }</option>)}
+            {sources.map(source => <option value={source} key={source}>{ source }</option>)}
         </select>
     </div>
 )

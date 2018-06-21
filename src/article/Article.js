@@ -1,11 +1,11 @@
 import React from 'react';
 
-export default ({title, date, source}) => (
+export default ({title, publishedAt, source}) => (
     <div>
         <p>{title}</p>
         <div>
-            <span>{date}</span>
-            <span>{source}</span>
+            <span>{publishedAt}</span>
+            <span>{source.name}</span>
         </div>
     </div>
 )
