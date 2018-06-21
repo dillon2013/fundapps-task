@@ -1,7 +1,7 @@
 import React from 'react';
 
-export default () => (
+export default (props) => (
     <div>
-        <button>Show More</button>
+        <button onClick={props.showMore}>Show More</button>
     </div>
 )

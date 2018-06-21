@@ -11,22 +11,25 @@ class App extends Component {
   state = {
     sourceFilter: null,
     sources: [],
-    articles: []
+    articles: [],
+    page: 1
   };
 
   componentDidMount() {
       this.fetchData();
   }
 
-  async fetchData() {
-      const url = 'https://newsapi.org/v2/everything?q=bitcoin&apiKey=9041cc957f4940d2920bc3dc4c6a880d&pageSize=2&page=1';
+  fetchData = async () => {
+
+      const url = `https://newsapi.org/v2/everything?q=bitcoin&apiKey=9041cc957f4940d2920bc3dc4c6a880d&pageSize=2&page=${this.state.page}`;
       try {
           const {data:{articles}} = await axios.get(url);
           const sources = articles.map(article => article.source.name);
 
           this.setState({
               articles: this.state.articles.concat(articles),
-              sources
+              sources: this.state.sources.concat(sources),
+              page: this.state.page + 1
           });
       } catch (err) {
           console.log(err)
@@ -39,8 +42,8 @@ class App extends Component {
     return (
       <div className="App">
         <Header title="News" sources={sources} />
-          {articles.map(article => <Article key={article.source.name} {...article}/>)}
-        <Footer />
+          {articles.map(article => <Article key={article.title + article.publishedAt} {...article}/>)}
+        <Footer showMore={this.fetchData} />
       </div>
     );
   }
